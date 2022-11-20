@@ -2,11 +2,15 @@ import os
 import glob
 import time
 import RPi.GPIO as GPIO
+import redis
 
 BLUE_LED = 19
 GREEN_LED = 13
-STATUS = "LOW"
 CHANGE = True
+DATA = {"celsius": 0, "farenheit": 0, "status": "LOW"}
+stream_name = 'mystream'
+
+db = redis.Redis("localhost")
 
 GPIO.setmode(GPIO.BCM)
 
@@ -40,22 +44,23 @@ def read_temp():
 
 while True:
     time.sleep(1)
-    celsius, farenheit = read_temp()
-    if celsius < 25:
-        print("Temperature: ",celsius, "C° (Low)")
-        if STATUS !="LOW":
-            STATUS="LOW"
+    DATA["celsius"],DATA["farenheit"] = read_temp()
+    if DATA["celsius"] < 25:
+        print("Temperature: ",DATA["celsius"], "C° (Low)")
+        if DATA["status"] !="LOW":
+            DATA["status"]="LOW"
             CHANGE= True
             print("STATUS has changed to LOW!")
     else:
-        print("Temperature: ",celsius,"C° (High)")
-        if STATUS !="HIGH":
-            STATUS="HIGH"
+        print("Temperature: ",DATA["celsius"],"C° (High)")
+        if DATA["status"] !="HIGH":
+            DATA["status"]="HIGH"
             CHANGE= True
             print("STATUS has changed to HIGH!")
+    db.xadd(stream_name, DATA, id='*')
     if CHANGE:
         CHANGE = False
-        if STATUS =="HIGH":
+        if DATA["status"] =="HIGH":
             GPIO.output(BLUE_LED, GPIO.LOW)
             GPIO.output(GREEN_LED, GPIO.HIGH)
         else:
