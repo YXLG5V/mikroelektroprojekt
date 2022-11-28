@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<script src="Chart.js"></script>
+<body>
+
+ 	<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+	<script>
+		function dochart(xValues, yValues) {
+			new Chart("myChart", {
+			  type: "line",
+			  data: {
+			    labels: xValues,
+			    datasets: [{
+			      fill: false,
+			      lineTension: 0,
+			      backgroundColor: "rgba(0,0,255,1.0)",
+			      borderColor: "rgba(0,0,255,0.1)",
+			      data: yValues
+			    }]
+			  },
+			  options: {
+			    legend: {display: false},
+			    scales: {
+			      yAxes: [{ticks: {min: 20, max:30}}],
+			    }
+			  }
+			});
+		}
+
+		var x = [1,2,3,4,5,6,7,8,9,10];
+		var y = [20,21,22,23,24,25,26,27,28,29,30];
+		dochart(x, y);
+
+	</script>
+
+	<h1>Get Temperature</h1>
+
+	<script type="text/javascript">
+		function gettemp() {
+			var apiUrl = 'http://127.0.0.1:5000/gettemp';
+			fetch(apiUrl).then(response => {
+				return response.json();
+			}).then(tempdata => {
+				document.getElementById('tempdata').innerHTML = JSON.stringify(tempdata);
+				var x = [1,2,3,4,5,6,7,8,9,10];
+				var y = tempdata;
+				dochart(x, y);
+			}).catch(err => {
+				console.log("Something went wrong!");
+			});
+		}
+	</script>
+
+	<button onclick="gettemp()">GET</button>
+
+	<p>Results</p>   
+	<div id="tempdata"></div>
+
+</body>
+</html>
