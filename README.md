@@ -17,5 +17,5 @@ A weboldal pedig [innen](https://github.com/YXLG5V/mikroelektroprojekt/blob/mast
 
 Néhány kép a projectről: [1](https://github.com/YXLG5V/mikroelektroprojekt/blob/master/pic/20221128_171347.jpg) [2](https://github.com/YXLG5V/mikroelektroprojekt/blob/master/pic/20221128_181439.jpg) [3](https://github.com/YXLG5V/mikroelektroprojekt/blob/master/pic/20221128_181550.jpg)
 
-[Teljes Dokumentáció](https://github.com/YXLG5V/mikroelektroprojekt/blob/master/doc/ratkairobertYXLG5Vmikroelektroproject.pdf)
+A fejlesztői dokumentéció és a felhasználó útmutató: [Doc](https://github.com/YXLG5V/mikroelektroprojekt/tree/master/doc)
 
