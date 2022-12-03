@@ -1,4 +1,4 @@
-# Mikroelektromechanikai rendszerek - projekt
+# Mikroelektromechanikai rendszerek (GKLB_INTM020) - Projekt
 
 *
 
